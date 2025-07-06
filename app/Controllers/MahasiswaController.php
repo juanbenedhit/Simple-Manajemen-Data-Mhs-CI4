@@ -29,8 +29,6 @@ class MahasiswaController extends BaseController
         return view('mahasiswa/create', $data);
     }
 
-    /**
-     */
     public function store()
     {
         $rules = [
@@ -40,7 +38,6 @@ class MahasiswaController extends BaseController
             'angkatan' => 'required|integer|exact_length[4]'
         ];
 
-        // Jalankan validasi
         if (!$this->validate($rules)) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
@@ -57,29 +54,23 @@ class MahasiswaController extends BaseController
 
     public function edit($id)
     {
-        // Ambil data mahasiswa berdasarkan ID
         $data['mahasiswa'] = $this->mahasiswaModel->find($id);
         $data['title'] = 'Edit Data Mahasiswa';
 
-        // Jika data tidak ditemukan, tampilkan error 404
         if (empty($data['mahasiswa'])) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Data mahasiswa tidak ditemukan untuk ID: ' . $id);
         }
 
-        // Tampilkan view form edit dengan data yang sudah ada
         return view('mahasiswa/edit', $data);
     }
 
     /**
-     * Memperbarui data di dalam database.
      * @param int $id
      */
     public function update($id)
     {
-        // Ambil data lama untuk perbandingan NIM
         $oldData = $this->mahasiswaModel->find($id);
         
-        // Aturan validasi untuk NIM: jika NIM diubah, maka harus unik.
         $nimRule = ($oldData->nim == $this->request->getPost('nim')) ? 'required|max_length[15]' : 'required|is_unique[mahasiswa.nim]|max_length[15]';
 
         $rules = [
@@ -89,12 +80,10 @@ class MahasiswaController extends BaseController
             'angkatan' => 'required|integer|exact_length[4]'
         ];
 
-        // Jalankan validasi
         if (!$this->validate($rules)) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
-        // Jika validasi berhasil, update data
         $this->mahasiswaModel->update($id, [
             'nim' => $this->request->getPost('nim'),
             'nama' => $this->request->getPost('nama'),
@@ -102,20 +91,16 @@ class MahasiswaController extends BaseController
             'angkatan' => $this->request->getPost('angkatan'),
         ]);
 
-        // Arahkan kembali ke halaman utama dengan pesan sukses
         return redirect()->to('/mahasiswa')->with('success', 'Data mahasiswa berhasil diperbarui.');
     }
 
     /**
-     * Menghapus data dari database.
      * @param int $id
      */
     public function delete($id)
     {
-        // Hapus data berdasarkan ID
         $this->mahasiswaModel->delete($id);
 
-        // Arahkan kembali ke halaman utama dengan pesan sukses
         return redirect()->to('/mahasiswa')->with('success', 'Data mahasiswa berhasil dihapus.');
     }
 

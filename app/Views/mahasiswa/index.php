@@ -4,15 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manajemen Data Mahasiswa</title>
-    <!-- Memuat Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Menambahkan font Inter untuk tampilan yang lebih modern */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
         body {
             font-family: 'Inter', sans-serif;
         }
-        /* Style untuk transisi modal */
         .modal-backdrop {
             transition: opacity 0.3s ease;
         }
@@ -23,22 +20,18 @@
 </head>
 <body class="text-gray-800 bg-gray-100">
 
-    <!-- Kontainer Utama -->
     <div class="container p-4 mx-auto sm:p-6 lg:p-8">
 
-        <!-- Header -->
         <header class="p-6 mb-6 bg-white rounded-lg shadow-md">
             <h1 class="text-2xl font-bold text-gray-700 sm:text-3xl">Manajemen Data Mahasiswa</h1>
             <p class="mt-1 text-gray-500">Daftar semua mahasiswa yang terdaftar di sistem.</p>
         </header>
         
-        <!-- Notifikasi Sukses (Contoh) -->
         <div id="success-alert" class="hidden p-4 mb-6 text-green-700 bg-green-100 border-l-4 border-green-500 rounded-md shadow-sm" role="alert">
             <p class="font-bold">Sukses!</p>
             <p>Data mahasiswa berhasil diperbarui.</p>
         </div>
 
-        <!-- Tombol Aksi -->
         <div class="mb-6">
             <a href="/mahasiswa/create" class="inline-flex items-center px-4 py-2 font-bold text-white transition-transform transform bg-blue-500 rounded-lg shadow-md hover:bg-blue-600 hover:scale-105">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
@@ -48,7 +41,6 @@
             </a>
         </div>
 
-        <!-- Tabel Data Mahasiswa -->
         <div class="overflow-hidden bg-white rounded-lg shadow-md">
             <div class="overflow-x-auto">
                 <table class="min-w-full leading-normal">
@@ -98,7 +90,6 @@
 
     </div>
 
-    <!-- Modal Konfirmasi Hapus -->
     <div id="deleteModal" class="fixed inset-0 flex items-center justify-center hidden p-4 bg-gray-900 bg-opacity-50 opacity-0 modal-backdrop">
         <div class="w-full max-w-md p-6 transform scale-95 bg-white rounded-lg shadow-xl modal-content">
             <div class="flex items-start">
@@ -144,15 +135,12 @@
         const dataNim = document.getElementById('data-nim');
 
         function openModal(button) {
-            // Mengambil data dari atribut tombol
             const name = button.getAttribute('data-name');
             const nim = button.getAttribute('data-nim');
 
-            // Menampilkan data di modal
             dataName.textContent = `Nama: ${name}`;
             dataNim.textContent = `NIM: ${nim}`;
 
-            // Menampilkan modal dengan animasi
             modal.classList.remove('hidden');
             setTimeout(() => {
                 modalBackdrop.classList.remove('opacity-0');
@@ -161,15 +149,13 @@
         }
 
         function closeModal() {
-            // Menutup modal dengan animasi
             modalBackdrop.classList.add('opacity-0');
             modalContent.classList.add('scale-95');
             setTimeout(() => {
                 modal.classList.add('hidden');
-            }, 300); // Sesuaikan dengan durasi transisi CSS
+            }, 300);
         }
 
-        // Menutup modal jika klik di luar area konten
         window.onclick = function(event) {
             if (event.target == modal) {
                 closeModal();
