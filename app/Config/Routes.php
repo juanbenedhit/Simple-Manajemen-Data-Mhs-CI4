@@ -18,3 +18,4 @@ $routes->post('/mahasiswa/update/(:num)', 'MahasiswaController::update/$1');
 $routes->get('/mahasiswa/delete/(:num)', 'MahasiswaController::delete/$1');
 
 
+$routes->get('/', 'MahasiswaController::index');
